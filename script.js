@@ -5,6 +5,14 @@ const pokemonGrid = document.querySelector(".pokemon-grid");
 const modal = document.querySelector(".pokemon-modal");
 const modalBody = document.querySelector(".modal-body");
 const closeBtn = document.querySelector(".close-btn");
+const typeButtons = document.querySelectorAll(".type")
+
+typeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const selectedType = button.dataset.type;
+        getPokemonByType(selectedType);
+    });
+});
 
 async function getPokemon(name) {
 
@@ -18,53 +26,43 @@ async function getPokemon(name) {
 
         const data = await response.json();
 
+        console.log(data.stats);
+
         createPokemonCard(data);
 
-        pokemonGrid.innerHTML = `
-        <div class="card ${data.types[0].type.name}">
-
-            <img src="${data.sprites.other["official-artwork"].front_default}" alt="${data.name}">
-
-            <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h3>
-
-            <p class="pokemon-id">
-                #${String(data.id).padStart(3, "0")}
-            </p>
-
-            <div class="badges">
-                ${data.types.map(type => `
-                    <span class="badge ${type.type.name}">
-                        ${type.type.name}
-                    </span>
-                `).join("")}
-            </div>
-
-            <div class="stats">
-
-                <p>
-                    <strong>Height</strong>
-                    ${data.height / 10} m
-                </p>
-
-                <p>
-                    <strong>Weight</strong>
-                    ${data.weight / 10} kg
-                 </p>
-
-            </div>
-
-            <button class="details-btn">
-                View Details
-            </button>
-
-        </div>
-`;
+        
 
     }
 
     catch (error) {
 
-        alert("Pokémon not found!");
+        alert("Pokemon not found!");
+
+    }
+
+}
+
+async function getPokemonByType(type){
+
+    try{
+
+        const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+
+        const data = await response.json();
+
+        pokemonGrid.innerHTML = "";
+
+        for(const item of data.pokemon){
+
+            console.log(item.pokemon.name);
+
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error);
 
     }
 
@@ -113,9 +111,96 @@ function createPokemonCard(data){
 
 }
 
-function showPokemonDetails(data){
+function showPokemonDetails(data) {
 
     modal.style.display = "flex";
+
+    modalBody.innerHTML = `
+
+        <img
+            class="modal-image"
+            src="${data.sprites.other["official-artwork"].front_default}"
+            alt="${data.name}"
+        >
+
+        <h2>${data.name.toUpperCase()}</h2>
+
+        <p class="pokemon-id">
+            #${String(data.id).padStart(3,"0")}
+        </p>
+
+        <div class = "modal-types">
+            
+            ${data.types.map(type => `
+                <span class="badge ${type.type.name}">
+                    ${type.type.name}
+                </span>
+            `).join("")}
+        
+        </div>
+
+        <div class="modal-info">
+
+            <p><strong>Height:</strong> ${data.height / 10} m</p>
+
+            <p><strong>Weight:</strong> ${data.weight / 10} kg</p>
+
+            <p><strong>Base Experience:</strong> ${data.base_experience}</p>
+
+        </div>
+
+
+        <h3>Abilities</h3>
+
+        <div class="abilities">
+
+            ${data.abilities.map(ability => `
+                <span class="ability">
+                    ${ability.ability.name}
+                </span>
+            `).join("")}
+
+        </div>
+
+        <h3>Base Stats</h3>
+
+        <div class="stats-container">
+            ${data.stats.map(stat =>  `
+                <div class="stat">
+                    <div class="stat-header">
+                        <span>
+                            ${
+                                stat.stat.name === "hp" ? "HP":
+                                stat.stat.name === "attack" ? "Attack":
+                                stat.stat.name === "defense" ? "Defense":
+                                stat.stat.name === "special-attack" ? "Sp.Attack":
+                                stat.stat.name === "special-defense" ? "Sp.Defense":
+                                stat.stat.name === "speed" ? "Speed":
+                                stat.stat.name
+                            }
+                        </span>
+                        <span>${stat.base_stat}</span>
+                    </div>
+                    <div class="stat-bar">
+                        <div
+                            class="stat-fill"
+                            style="
+                                width:${Math.min(stat.base_stat,150)/ 1.5}%;
+                                background:${
+                                    stat.base_stat >= 100
+                                        ? '#22c55e'
+                                        : stat.base_stat  >= 70
+                                        ? '#facc15'
+                                        : '#ef4444 '
+                                };
+                            "
+                        ></div>
+                    </div>
+                </div>
+            `).join("")}
+        </div>
+
+    `;
 
 }
 
@@ -127,6 +212,10 @@ console.log(searchInput);
 console.log(searchButton);
 console.log(loader);
 console.log(pokemonGrid);
+console.log(modal);
+console.log(modalBody);
+console.log(closeBtn);
+
 
 
 
