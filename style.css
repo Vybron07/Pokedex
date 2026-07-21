@@ -260,7 +260,7 @@ h1{
     box-shadow: 0 10px 25px rgba(0,0,0,.35);
 }
 
-.pokémon-section{
+.pokemon-section{
 
     width:90%;
 
@@ -271,7 +271,7 @@ h1{
 
 }
 
-.pokémon-section h2{
+.pokemon-section h2{
 
     text-align:center;
 
@@ -281,7 +281,7 @@ h1{
 
 }
 
-.pokémon-grid{
+.pokemon-grid{
 
     display:grid;
 
@@ -340,20 +340,14 @@ h1{
 
 }
 
-.pokémon-modal{
+.pokemon-modal{
 
     
     display:none;
 
     position:fixed;
 
-    top:0;
-
-    left:0;
-
-    width:100%;
-
-    height:100vh;
+    inset:0;
 
     background:rgba(0,0,0,.7);
 
@@ -370,6 +364,10 @@ h1{
     width:700px;
 
     max-width:90%;
+
+    max-height:90vh;
+
+    overflow-y:auto;
 
     background:#1E293B;
 
@@ -600,7 +598,7 @@ h1{
 
 }
 
-.pokémon-id{
+.poke mon-id{
 
     color:#94a3b8;
 
@@ -794,4 +792,158 @@ h1{
 
     transform:translateY(-3px);
 
+}
+
+.modal-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.modal-image{
+
+    width:220px;
+
+    height:220px;
+
+    object-fit:contain;
+
+    diplay:block;
+
+    margin-bottom:0 auto 20px;
+
+
+
+}
+
+.modal-types{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin:20px 0;
+
+}
+
+.modal-info{
+
+    margin:25px 0;
+
+    line-height:2;
+
+    text-align:center;
+
+}
+
+.modal-info p{
+
+    font-size:10px;
+
+}
+
+/* ===== Abilities ===== */
+
+.abilities{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+
+
+}
+
+.ability{
+
+    background:#334155;
+
+    color:white;
+
+    padding:10px 10px;
+
+    border-radius:20px;
+
+    font-weight:600;
+}
+
+/* ==========================
+   Modal Stats
+========================== */
+
+.stats-container{
+
+    width:100%;
+
+    margin-top:25px;
+
+
+}
+
+.stat{
+
+    margin-bottom:18px;
+}
+
+.stat-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    font-size:16px;
+
+}
+
+.stat-bar{
+
+    width:100%;
+
+    height:12px;
+
+    background:#334115;
+
+    border-radius:1px;
+
+    overflow:hidden;
+
+}
+
+.stat-fill{
+
+    height:100%;
+
+    border-radius:10px;
+
+    transition:width .5s ease;
+
+}
+
+@keyframes fillBar{
+
+    from{
+
+        width:0;
+    }
 }
