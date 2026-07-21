@@ -1,57 +1,165 @@
 # ⚡ Pokédex
 
-A modern, responsive Pokédex web application built using HTML, CSS, and JavaScript. This project allows users to explore Pokémon, search by name, filter by type, and view detailed Pokémon information using data from the PokéAPI.
-
-> 🚧 This project is currently under development.
+A modern and responsive Pokédex web application built using **HTML, CSS, and JavaScript**. It uses the **PokéAPI** to fetch real Pokémon data and provides a clean, interactive user interface.
 
 ---
 
-## 📸 Preview
+## 📌 Features
 
-*(Add screenshots here later)*
+### 🔍 Search Pokémon
+- Search Pokémon by name.
+- Fetches live data from the PokéAPI.
+- Displays an alert if the Pokémon is not found.
 
----
-
-## ✨ Features Completed
-
-- ✅ Modern responsive navigation bar
-- ✅ Hero landing section
-- ✅ Search bar UI
-- ✅ Pokémon type filter section
-- ✅ All 18 Pokémon types with unique colors
-- ✅ Hover animations for buttons
-- ✅ Modern dark-themed UI
-- ✅ Responsive Flexbox layout
+### 📄 Pokémon Card
+Each search displays a Pokémon card containing:
+- Official Artwork
+- Pokémon Name
+- Pokédex Number
+- Type Badge
+- View Details Button
 
 ---
 
-## 🚀 Features Coming Soon
+## 📖 Pokémon Details Modal
 
-- 🔄 Fetch Pokémon data from PokéAPI
-- 🔍 Live Pokémon search
-- 📋 Pokémon cards
-- ❤️ Favorites system
-- 🌙 Dark / Light mode
-- 📱 Fully responsive mobile design
-- 📄 Pokémon details modal
-- 🎨 Smooth animations
-- ⚡ Loading spinner
-- 📊 Pokémon statistics
-- 🧬 Evolution chain
-- 📑 Pagination / Infinite scrolling
+Clicking **View Details** opens a responsive modal containing:
+
+### Basic Information
+- Official Artwork
+- Pokémon Name
+- Pokédex Number
+- Pokémon Type
+
+### Physical Information
+- Height
+- Weight
+- Base Experience
+
+### Abilities
+- Lists all available abilities as badges.
+
+### Base Stats
+Displays all six base stats:
+- HP
+- Attack
+- Defense
+- Special Attack
+- Special Defense
+- Speed
+
+Each stat is represented using a progress bar whose width depends on the stat value.
 
 ---
 
-## 🛠️ Built With
+## 🎨 User Interface
+
+### Responsive Modal
+- Centered popup
+- Scrollable when content exceeds viewport height
+- Close button
+- Dark themed design
+
+### Type Badges
+Each Pokémon type is displayed using colored badges.
+
+Examples:
+- Electric
+- Fire
+- Water
+- Grass
+- Ghost
+- Dragon
+- etc.
+
+---
+
+## ⚙️ API Integration
+
+This project uses:
+
+https://pokeapi.co/
+
+Endpoints currently implemented:
+
+### Search Pokémon
+
+```
+GET /pokemon/{name}
+```
+
+### Fetch Pokémon Type
+
+```
+GET /type/{type}
+```
+
+---
+
+## 🛠 Current Progress
+
+### ✅ Completed
+
+- Search Pokémon
+- Fetch Pokémon data
+- Loading animation
+- Dynamic Pokémon Card
+- View Details Modal
+- Height
+- Weight
+- Base Experience
+- Abilities
+- Base Stats
+- Dynamic Progress Bars
+- Responsive Modal
+- Type Buttons
+- Connected Type API
+- Fire, Water, Grass, Electric etc. successfully fetch Pokémon lists from PokéAPI
+
+---
+
+## 🚧 Currently Working On
+
+### Type Filtering
+
+Current Status:
+- Type buttons are clickable
+- Type API successfully returns Pokémon list
+- Pokémon names are successfully retrieved
+
+Next Step:
+- Dynamically generate Pokémon cards for every Pokémon returned by the selected type.
+
+---
+
+## 🚀 Future Features
+
+- Display all Pokémon of selected type
+- Dynamic theme based on Pokémon type
+- Evolution Chain
+- Favorite Pokémon (Local Storage)
+- Random Pokémon Button
+- Pagination
+- Infinite Scrolling
+- Responsive Mobile Layout
+- Search Suggestions
+- Similar Pokémon Section
+- Better Animations
+- Dark/Light Theme Toggle
+
+---
+
+## 🧰 Technologies Used
 
 - HTML5
 - CSS3
-- JavaScript (Coming Soon)
-- PokéAPI (Coming Soon)
+- JavaScript (ES6+)
+- Fetch API
+- PokéAPI
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
 Pokedex/
@@ -59,72 +167,40 @@ Pokedex/
 ├── index.html
 ├── style.css
 ├── script.js
-├── assets/
-│   ├── images/
-│   └── icons/
-└── README.md
+└── assets/
 ```
 
 ---
 
-## 🎯 Learning Goals
+## 📸 Current Screens
 
-This project is helping me learn:
+✔ Search Page
 
-- Semantic HTML
-- Modern CSS
-- Flexbox
-- Responsive Design
-- JavaScript DOM Manipulation
+✔ Pokémon Card
+
+✔ Details Modal
+
+✔ Type Buttons
+
+✔ Stat Bars
+
+---
+
+## 📚 What I Learned
+
+During this project I learned:
+
+- DOM Manipulation
+- Event Listeners
+- Async / Await
+- Fetch API
+- JavaScript Template Literals
+- Dynamic HTML Rendering
+- CSS Flexbox
+- CSS Animations
+- Modal Design
 - API Integration
-- Async JavaScript
-- Git & GitHub
-
----
-
-## 📈 Development Progress
-
-- [x] Project Setup
-- [x] Navigation Bar
-- [x] Hero Section
-- [x] Search UI
-- [x] Type Filter Buttons
-- [ ] Pokémon Card Layout
-- [ ] API Integration
-- [ ] Search Functionality
-- [ ] Favorites
-- [ ] Dark Mode
-- [ ] Responsive Improvements
-- [ ] Deployment
-
----
-
-## 🌐 API
-
-This project will use the free PokéAPI.
-
-https://pokeapi.co/
-
----
-
-## 📷 Screenshots
-
-### Home Page
-
-*(Coming Soon)*
-
----
-
-## 🤝 Contributing
-
-Suggestions and feedback are welcome.
-Feel free to fork the repository and submit a pull request.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
+- Debugging JavaScript Errors
 
 ---
 
@@ -132,8 +208,4 @@ This project is licensed under the MIT License.
 
 **Vivek Raut**
 
-GitHub: https://github.com/Vybron07
-
----
-
-⭐ If you like this project, consider giving it a star!
+Built as a personal project to practice JavaScript, API integration, DOM manipulation, and frontend development.
