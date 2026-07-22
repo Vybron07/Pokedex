@@ -1,46 +1,52 @@
-# ⚡ Pokédex
+# 🧩 Pokédex Web App
 
-A modern and responsive Pokédex web application built using **HTML, CSS, and JavaScript**. It uses the **PokéAPI** to fetch real Pokémon data and provides a clean, interactive user interface.
+A responsive and interactive Pokédex built using **HTML**, **CSS**, and **Vanilla JavaScript**, powered by the **PokéAPI**.
+
+This project allows users to browse Pokémon, search them, filter by type, and view detailed information inside a modern modal.
 
 ---
 
-## 📌 Features
+## 🚀 Features
 
 ### 🔍 Search Pokémon
 - Search Pokémon by name.
-- Fetches live data from the PokéAPI.
+- Uses PokéAPI to fetch Pokémon data.
 - Displays an alert if the Pokémon is not found.
 
-### 📄 Pokémon Card
-Each search displays a Pokémon card containing:
-- Official Artwork
-- Pokémon Name
-- Pokédex Number
-- Type Badge
-- View Details Button
+### 🎨 Filter by Type
+- 18 Pokémon type buttons.
+- Dynamically fetches Pokémon belonging to the selected type.
+- Type badges are automatically generated.
+
+### 🃏 Pokémon Cards
+Each card displays:
+- Official artwork
+- Pokémon name
+- Pokédex number
+- Type badges
+- View Details button
 
 ---
 
 ## 📖 Pokémon Details Modal
 
-Clicking **View Details** opens a responsive modal containing:
+Clicking **View Details** opens a modal containing:
 
-### Basic Information
-- Official Artwork
-- Pokémon Name
-- Pokédex Number
-- Pokémon Type
-
-### Physical Information
+- Large artwork
+- Pokémon name
+- Pokédex ID
 - Height
 - Weight
 - Base Experience
+- Abilities
+- Base Stats
 
-### Abilities
-- Lists all available abilities as badges.
+---
 
-### Base Stats
-Displays all six base stats:
+## 📊 Base Stats
+
+Displays animated progress bars for:
+
 - HP
 - Attack
 - Defense
@@ -48,108 +54,35 @@ Displays all six base stats:
 - Special Defense
 - Speed
 
-Each stat is represented using a progress bar whose width depends on the stat value.
+### Dynamic Colors
+
+Green
+- 100+
+
+Yellow
+- 70–99
+
+Red
+- Below 70
 
 ---
 
-## 🎨 User Interface
+## 🎯 Load More Pagination (In Progress)
 
-### Responsive Modal
-- Centered popup
-- Scrollable when content exceeds viewport height
-- Close button
-- Dark themed design
+Instead of loading every Pokémon at once:
 
-### Type Badges
-Each Pokémon type is displayed using colored badges.
+- Loads 20 Pokémon initially.
+- Additional Pokémon can be loaded using a **Load More** button.
+- Pagination state is tracked using:
+  - `currentPokemonList`
+  - `currentIndex`
+  - `POKEMON_PER_LOAD`
 
-Examples:
-- Electric
-- Fire
-- Water
-- Grass
-- Ghost
-- Dragon
-- etc.
+This greatly improves performance.
 
 ---
 
-## ⚙️ API Integration
-
-This project uses:
-
-https://pokeapi.co/
-
-Endpoints currently implemented:
-
-### Search Pokémon
-
-```
-GET /pokemon/{name}
-```
-
-### Fetch Pokémon Type
-
-```
-GET /type/{type}
-```
-
----
-
-## 🛠 Current Progress
-
-### ✅ Completed
-
-- Search Pokémon
-- Fetch Pokémon data
-- Loading animation
-- Dynamic Pokémon Card
-- View Details Modal
-- Height
-- Weight
-- Base Experience
-- Abilities
-- Base Stats
-- Dynamic Progress Bars
-- Responsive Modal
-- Type Buttons
-- Connected Type API
-- Fire, Water, Grass, Electric etc. successfully fetch Pokémon lists from PokéAPI
-
----
-
-## 🚧 Currently Working On
-
-### Type Filtering
-
-Current Status:
-- Type buttons are clickable
-- Type API successfully returns Pokémon list
-- Pokémon names are successfully retrieved
-
-Next Step:
-- Dynamically generate Pokémon cards for every Pokémon returned by the selected type.
-
----
-
-## 🚀 Future Features
-
-- Display all Pokémon of selected type
-- Dynamic theme based on Pokémon type
-- Evolution Chain
-- Favorite Pokémon (Local Storage)
-- Random Pokémon Button
-- Pagination
-- Infinite Scrolling
-- Responsive Mobile Layout
-- Search Suggestions
-- Similar Pokémon Section
-- Better Animations
-- Dark/Light Theme Toggle
-
----
-
-## 🧰 Technologies Used
+## 🛠 Technologies
 
 - HTML5
 - CSS3
@@ -167,45 +100,43 @@ Pokedex/
 ├── index.html
 ├── style.css
 ├── script.js
-└── assets/
+└── README.md
 ```
 
 ---
 
-## 📸 Current Screens
+## 📌 Current Progress
 
-✔ Search Page
-
-✔ Pokémon Card
-
-✔ Details Modal
-
-✔ Type Buttons
-
-✔ Stat Bars
+- ✅ Search Pokémon
+- ✅ Filter by Type
+- ✅ Dynamic Cards
+- ✅ Details Modal
+- ✅ Animated Stat Bars
+- ✅ Dynamic Stat Colors
+- ✅ Ability Section
+- ✅ Base Stats
+- ✅ Responsive Modal
+- ✅ Pagination Logic
+- 🚧 Load More Button (Final Integration)
 
 ---
 
-## 📚 What I Learned
+## 🎯 Upcoming Features
 
-During this project I learned:
-
-- DOM Manipulation
-- Event Listeners
-- Async / Await
-- Fetch API
-- JavaScript Template Literals
-- Dynamic HTML Rendering
-- CSS Flexbox
-- CSS Animations
-- Modal Design
-- API Integration
-- Debugging JavaScript Errors
+- Finish Load More button
+- Loading Skeletons
+- Infinite Scrolling
+- Favorite Pokémon
+- Local Storage
+- Dark/Light Theme
+- Search Suggestions
+- Pokémon Comparison
+- Evolution Chain
+- Move List
+- Responsive Improvements
 
 ---
 
 ## 👨‍💻 Author
 
-**Vivek Raut**
-
-Built as a personal project to practice JavaScript, API integration, DOM manipulation, and frontend development.
+Developed by **Vivek Raut**
