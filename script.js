@@ -5,7 +5,14 @@ const pokemonGrid = document.querySelector(".pokemon-grid");
 const modal = document.querySelector(".pokemon-modal");
 const modalBody = document.querySelector(".modal-body");
 const closeBtn = document.querySelector(".close-btn");
-const typeButtons = document.querySelectorAll(".type")
+const typeButtons = document.querySelectorAll(".type");
+const loadMoreBtn = document.querySelector(".load-more-btn");
+loadMoreBtn.style.display = "none";
+let currentPokemonList = [];
+let currentIndex = 0;
+const POKEMON_PER_LOAD = 20;
+
+
 
 typeButtons.forEach(button => {
     button.addEventListener("click", () => {
@@ -17,6 +24,8 @@ typeButtons.forEach(button => {
 async function getPokemon(name) {
 
     try {
+
+        loader.style.display = "flex";
 
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
@@ -52,15 +61,23 @@ async function getPokemonByType(type){
 
         pokemonGrid.innerHTML = "";
 
-        for(const item of data.pokemon){
+        
+        
+        currentPokemonList = data.pokemon;
 
-            console.log(item.pokemon.name);
+        currentIndex = 0;
 
-        }
+        loadMoreBtn.style.display = "block";
+
+        await loadMorePokemon();
+
+        loader.style.display = "none";
 
     }
 
     catch(error){
+
+        loader.style.display = "none";
 
         console.log(error);
 
@@ -68,46 +85,76 @@ async function getPokemonByType(type){
 
 }
 
+async function loadMorePokemon(){
+
+    const end = Math.min(
+        currentIndex + POKEMON_PER_LOAD,
+        currentPokemonList.length
+    );
+
+    for(let i = currentIndex; i < end; i++){
+
+        const pokemonName = currentPokemonList[i].pokemon.name;
+
+        const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+
+        );
+
+        const pokemonData = await response.json();
+
+        createPokemonCard(pokemonData);
+    }
+
+    currentIndex = end;
+
+    if (currentIndex >= currentPokemonList.length) {
+
+        loadMoreBtn.style.display = "none";
+
+    }
+
+}
+
 function createPokemonCard(data){
 
-    pokemonGrid.innerHTML = `
-    
-        <div class="card">
+    const card = document.createElement("div");
 
-            <img src="${data.sprites.other["official-artwork"].front_default}">
+    card.classList.add("card");
 
-            <h2>${data.name}</h2>
+    card.innerHTML = `
 
-            <p>#${String(data.id).padStart(3,"0")}
-            
-            </p>
+        <img src="${data.sprites.other["official-artwork"].front_default}">
 
-            <div class="badges">
+        <h2>${data.name}</h2>
 
-                ${data.types.map(type => `
-                    <span class="badge ${type.type.name}">
-                        ${type.type.name}
-                     </span>
-                `).join("")}
+        <p>#${String(data.id).padStart(3,"0")}</p>
 
-            </div>
+        <div class = "badges">
 
-            <button class="details-btn" id="details-btn">
-                View Details
-            </button>
+            ${data.types.map(type => `
+                <span class="badge ${type.type.name}"
+                    ${type.type.name}
+                </span>
 
+            `).join("")}
 
         </div>
 
+        <button class = "details-btn">
+            View Details
+        </button>
+
     `;
 
-    const detailsBtn = document.querySelector("#details-btn");
+    const detailsBtn = card.querySelector(".details-btn");
 
     detailsBtn.addEventListener("click", () => {
 
         showPokemonDetails(data);
-
     });
+
+    pokemonGrid.appendChild(card);
 
 }
 
@@ -233,3 +280,10 @@ closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
 
 });
+
+loadMoreBtn.addEventListener("click", async () => {
+
+    await loadMorePokemon();
+
+});
+
