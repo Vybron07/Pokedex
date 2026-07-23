@@ -7,9 +7,12 @@ const modalBody = document.querySelector(".modal-body");
 const closeBtn = document.querySelector(".close-btn");
 const typeButtons = document.querySelectorAll(".type");
 const loadMoreBtn = document.querySelector(".load-more-btn");
+const suggestionsBox = document.querySelector(".suggestions-box");
+const searchBox = document.querySelector(".search-box");
 loadMoreBtn.style.display = "none";
 let currentPokemonList = [];
 let currentIndex = 0;
+let allPokemonNames = [];
 const POKEMON_PER_LOAD = 20;
 
 
@@ -20,6 +23,8 @@ typeButtons.forEach(button => {
         getPokemonByType(selectedType);
     });
 });
+
+
 
 async function getPokemon(name) {
 
@@ -262,17 +267,38 @@ console.log(pokemonGrid);
 console.log(modal);
 console.log(modalBody);
 console.log(closeBtn);
+console.log(suggestionsBox);
+
+async function loadAllPokemonNames(){
+
+    const response = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
+
+    );
+
+    const data = await response.json();
+    allPokemonNames = data.results.map(pokemon => pokemon.name);
+
+    console.log(allPokemonNames);
+}
 
 
+loadAllPokemonNames();
 
-
-searchButton.addEventListener("click", () => {
+async function searchPokemon() {
 
     const pokemonName = searchInput.value.toLowerCase().trim();
 
-    getPokemon(pokemonName);
+    if (pokemonName === "") return;
 
-});
+    await getPokemon(pokemonName);
+
+}
+
+
+
+
+searchButton.addEventListener("click",searchPokemon);
 
 
 closeBtn.addEventListener("click", () => {
@@ -287,3 +313,51 @@ loadMoreBtn.addEventListener("click", async () => {
 
 });
 
+searchBox.addEventListener("input",() =>{
+
+    const searchText = searchBox.value.toLowerCase();
+
+
+    console.log(searchText);
+
+    const matchedPokemon = allPokemonNames
+        .filter(pokemon => pokemon.startsWith(searchText))
+        .slice(0,10);
+
+    suggestionsBox.innerHTML = "";
+
+    if(searchText === ""){
+
+        suggestionsBox.style.display = "none";
+
+        return;
+
+    }
+
+    matchedPokemon.forEach(pokemon => {
+
+    const suggestion = document.createElement("div");
+
+    suggestion.textContent = pokemon;
+    
+    suggestion.addEventListener("click", async () => {
+
+        searchBox.value = pokemon;
+
+        suggestionsBox.innerHTML = "";
+
+        suggestionsBox.style.display = "none";
+
+        await searchPokemon();
+
+    });
+    suggestionsBox.appendChild(suggestion);
+
+    });
+
+    suggestionsBox.style.display = "block";
+
+
+
+    
+})
