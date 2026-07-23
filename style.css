@@ -947,3 +947,94 @@ h1{
         width:0;
     }
 }
+
+.load-more-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:40px 0;
+
+}
+
+.load-more-btn{
+
+    background:#ffcb05;
+
+    color:#2a75bb;
+
+    border:3px solid #2a75bb;
+
+    border-radius:50px;
+
+    padding:15px 35px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:all .3s ease;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+    animation:fadeIn .4s ease;
+
+}
+
+.load-more-btn:hover{
+
+    transform:translateY(-4px);
+
+    background:#ffd93d;
+
+    box-shadow:0 15px 30px rgba(0,0,0,0,.35);
+
+}
+
+.load-more-btn:active{
+
+    transform:scale(.96);
+
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.suggestions-box{
+
+    width:100%;
+
+    max-width:500px;
+
+    margin:0 auto;
+
+    background:#1e2938;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    display:none;
+    
+}
