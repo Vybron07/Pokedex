@@ -8,7 +8,7 @@ const closeBtn = document.querySelector(".close-btn");
 const typeButtons = document.querySelectorAll(".type");
 const loadMoreBtn = document.querySelector(".load-more-btn");
 const suggestionsBox = document.querySelector(".suggestions-box");
-const searchBox = document.querySelector(".search-box");
+const searchContainer = document.querySelector(".search-container");
 loadMoreBtn.style.display = "none";
 let currentPokemonList = [];
 let currentIndex = 0;
@@ -52,6 +52,11 @@ async function getPokemon(name) {
 
         alert("Pokemon not found!");
 
+    }
+
+    finally{
+
+        loader.style.display = "none";
     }
 
 }
@@ -138,7 +143,7 @@ function createPokemonCard(data){
         <div class = "badges">
 
             ${data.types.map(type => `
-                <span class="badge ${type.type.name}"
+                <span class="badge ${type.type.name}">
                     ${type.type.name}
                 </span>
 
@@ -163,7 +168,7 @@ function createPokemonCard(data){
 
 }
 
-function showPokemonDetails(data) {
+async function showPokemonDetails(data) {
 
     modal.style.display = "flex";
 
@@ -252,7 +257,25 @@ function showPokemonDetails(data) {
             `).join("")}
         </div>
 
+    
+
     `;
+
+    console.log(data.species.url);
+
+    const speciesResponse = await fetch(data.species.url);
+
+    const speciesData = await speciesResponse.json();
+
+    const evolutionResponse = await fetch(
+        speciesData.evolution_chain.url
+    )
+
+    const evolutionData = await evolutionResponse.json();
+
+    console.log(evolutionData);
+
+    console.log(speciesData.evolution_chain.url);
 
 }
 
@@ -293,11 +316,11 @@ async function searchPokemon() {
 
     await getPokemon(pokemonName);
 
+
+
+
+
 }
-
-
-
-
 searchButton.addEventListener("click",searchPokemon);
 
 
@@ -313,9 +336,9 @@ loadMoreBtn.addEventListener("click", async () => {
 
 });
 
-searchBox.addEventListener("input",() =>{
+searchInput.addEventListener("input",() =>{
 
-    const searchText = searchBox.value.toLowerCase();
+    const searchText = searchInput.value.toLowerCase();
 
 
     console.log(searchText);
@@ -323,6 +346,13 @@ searchBox.addEventListener("input",() =>{
     const matchedPokemon = allPokemonNames
         .filter(pokemon => pokemon.startsWith(searchText))
         .slice(0,10);
+
+    if (matchedPokemon.length === 0){
+
+        suggestionsBox.style.display = "none";
+
+        return;
+    }
 
     suggestionsBox.innerHTML = "";
 
@@ -342,7 +372,7 @@ searchBox.addEventListener("input",() =>{
     
     suggestion.addEventListener("click", async () => {
 
-        searchBox.value = pokemon;
+        searchInput.value = pokemon;
 
         suggestionsBox.innerHTML = "";
 
@@ -360,4 +390,17 @@ searchBox.addEventListener("input",() =>{
 
 
     
+})
+
+
+document.addEventListener("click", (event) =>{
+
+    if(
+        !searchInput.contains(event.target)&&
+        !suggestionsBox.contains(event.target)
+    ){
+        console.log("Hide Suggestions");
+
+        suggestionsBox.style.display = "none";
+    }
 })
